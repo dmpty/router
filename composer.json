@@ -1,0 +1,19 @@
+{
+    "name": "dmpty/router",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dmpty",
+            "email": "dmptyy@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dmpty\\Router\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.0"
+    }
+}
