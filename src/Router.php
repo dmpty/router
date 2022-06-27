@@ -2,10 +2,12 @@
 
 namespace Dmpty\Router;
 
+use Closure;
 use Dmpty\Router\Exceptions\RouterException;
 use Dmpty\Router\Exceptions\RouterHttpException;
 
 /**
+ * @method static group(array|Closure $options, Closure $callback = null)
  * @method static Route any($path, $action)
  * @method static Route get($path, $action)
  * @method static Route post($path, $action)
