@@ -76,8 +76,8 @@ class Group
 
     private function pathFormat($path)
     {
-        if (!$path || $path === '/') {
-            return '';
+        if (!$path) {
+            return '/';
         }
         return $this->formatPathEnd($this->formatPathFront($path));
     }
