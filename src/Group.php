@@ -93,9 +93,9 @@ class Group
         return $this->formatPathFront(substr($path, 1));
     }
 
-    private function formatPathEnd($path)
+    private function formatPathEnd($path): string
     {
-        if (!str_ends_with($path, '/')) {
+        if ($path === '/' || !str_ends_with($path, '/')) {
             return $path;
         }
         return $this->formatPathEnd(substr($path, 0, strlen($path) - 1));
