@@ -5,6 +5,7 @@ namespace Dmpty\Router;
 use Closure;
 use Dmpty\Router\Exceptions\RouterException;
 use Dmpty\Router\Exceptions\RouterHttpException;
+use Opis\Closure\SerializableClosure;
 
 /**
  * @method static group(array|Closure $options, Closure $callback = null)
@@ -23,9 +24,9 @@ class Router
 {
     private static ?Router $instance = null;
 
-    private array $pathMap;
+    private array $pathMap = [];
 
-    private array $nameMap;
+    private array $nameMap = [];
 
     private Group $defaultGroup;
 
@@ -95,13 +96,16 @@ class Router
         return [];
     }
 
-    public static function getRouteByName($name)
+    /**
+     * @throws RouterHttpException
+     */
+    public static function getPathByName($name)
     {
         $instance = self::getInstance();
         if ($path = $instance->nameMap[$name] ?? null) {
-            return self::getRouteByPath($path);
+            return $path;
         }
-        return [];
+        throw new RouterHttpException("Route named $name undefined");
     }
 
     /**
@@ -171,5 +175,35 @@ class Router
             }
         }
         return $path1 === $path2 ? $args : false;
+    }
+
+    public static function cache($path, $fileName = 'route.php')
+    {
+        $instance = self::getInstance();
+        $pathMap = $instance->pathMap;
+        foreach ($pathMap as &$pathRoute) {
+            foreach ($pathRoute as &$methodRoute) {
+                if ($methodRoute['action'] instanceof Closure) {
+                    $methodRoute['action'] = new SerializableClosure($methodRoute['action']);
+                }
+            }
+        }
+        $route = [
+            'pathMap' => $pathMap,
+            'nameMap' => $instance->nameMap,
+        ];
+        if (!file_exists($path)) {
+            mkdir($path);
+        }
+        $file = $path . '/' . $fileName;
+        file_put_contents($file, serialize($route));
+    }
+
+    public static function loadCache($file)
+    {
+        $route = unserialize(file_get_contents($file));
+        $instance = self::getInstance();
+        $instance->pathMap = $route['pathMap'];
+        $instance->nameMap = $route['nameMap'];
     }
 }

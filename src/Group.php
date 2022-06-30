@@ -74,7 +74,7 @@ class Group
         $callback($child);
     }
 
-    private function pathFormat($path)
+    private function pathFormat($path): string
     {
         if (!$path) {
             return '/';
