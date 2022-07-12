@@ -42,7 +42,7 @@ class Route
         return $this;
     }
 
-    private function updateMap(string $name = '')
+    private function updateMap(string $name = ''): void
     {
         $route = Router::getRouteByPath($this->path);
         $route = array_merge($route, [

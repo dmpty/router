@@ -68,7 +68,7 @@ class Router
         return $handler->run();
     }
 
-    public static function updateMap(string $path, array $value, string $name = '')
+    public static function updateMap(string $path, array $value, string $name = ''): void
     {
         $instance = self::getInstance();
         $instance->updatePathMap($path, $value);
@@ -77,12 +77,12 @@ class Router
         }
     }
 
-    private function updatePathMap(string $path, array $value)
+    private function updatePathMap(string $path, array $value): void
     {
         $this->pathMap[$path] = $value;
     }
 
-    private function updateNameMap(string $name, string $path)
+    private function updateNameMap(string $name, string $path): void
     {
         $this->nameMap[$name] = $path;
     }
@@ -177,7 +177,7 @@ class Router
         return $path1 === $path2 ? $args : false;
     }
 
-    public static function cache($path, $fileName = 'route.php')
+    public static function cache($path, $fileName = 'route.php'): void
     {
         $instance = self::getInstance();
         $pathMap = $instance->pathMap;
@@ -199,7 +199,7 @@ class Router
         file_put_contents($file, serialize($route));
     }
 
-    public static function loadCache($file)
+    public static function loadCache($file): void
     {
         $route = unserialize(file_get_contents($file));
         $instance = self::getInstance();

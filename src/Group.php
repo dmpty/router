@@ -58,7 +58,7 @@ class Group
         return new Route($method, $path, $action, $this->middleware);
     }
 
-    public function group(array|Closure $options, Closure $callback = null)
+    public function group(array|Closure $options, Closure $callback = null): void
     {
         if ($options instanceof Closure) {
             $callback = $options;

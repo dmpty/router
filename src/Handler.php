@@ -3,6 +3,7 @@
 namespace Dmpty\Router;
 
 use Closure;
+use Dmpty\Container\Container;
 use Dmpty\Router\Exceptions\RouterException;
 
 class Handler
@@ -15,10 +16,23 @@ class Handler
 
     private array $args;
 
+    private Container $app;
+
+    public function __construct()
+    {
+        $container = Container::getInstance();
+        if (!$container->has('app')) {
+            $container->singleton('app', function () {
+                return Container::getInstance();
+            });
+        }
+        $this->app = $container->make('app');
+    }
+
     /**
      * @throws RouterException
      */
-    public function push($middleware)
+    public function push($middleware): void
     {
         if (is_string($middleware)) {
             if (!class_exists($middleware)) {
@@ -35,10 +49,10 @@ class Handler
     /**
      * @throws RouterException
      */
-    public function action($action, array $args)
+    public function action($action, array $args): void
     {
         if (is_array($action) && isset($action[0]) && is_string($action[0]) && class_exists($action[0])) {
-            $action[0] = new $action[0];
+            $action[0] = $this->app->make($action[0]);
         }
         if (!is_callable($action)) {
             throw new RouterException('Invalid action');

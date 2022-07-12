@@ -15,6 +15,14 @@
     },
     "require": {
         "php": "^8.0",
-        "opis/closure": "^3.6"
-    }
+        "opis/closure": "^3.6",
+        "dmpty/container": "dev-master"
+    },
+    "repositories": {
+        "dmpty/container": {
+            "type": "git",
+            "url": "git@39.108.176.6:php_lucky_master/container.git"
+        }
+    },
+    "minimum-stability": "dev"
 }
