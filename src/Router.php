@@ -114,6 +114,7 @@ class Router
     private static function getRouteByUri(): bool|array
     {
         $uri = $_SERVER['REQUEST_URI'];
+        list($uri) = explode('?', $uri);
         $instance = self::getInstance();
         $route = null;
         $args = [];
