@@ -38,7 +38,7 @@ class Handler
             if (!class_exists($middleware)) {
                 throw new RouterException('Invalid middleware');
             }
-            $middleware = new $middleware();
+            $middleware = $this->app->make($middleware);
         }
         if (!($middleware instanceof Middleware)) {
             throw new RouterException('Invalid middleware');
