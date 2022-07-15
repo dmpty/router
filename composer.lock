@@ -4,26 +4,32 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a7fab0e943fecb914bec6dc56b6132a",
+    "content-hash": "891f561065c8686056963a9dfaf54baa",
     "packages": [
         {
             "name": "dmpty/container",
-            "version": "dev-master",
+            "version": "1.0",
             "source": {
                 "type": "git",
-                "url": "git@39.108.176.6:php_lucky_master/container.git",
-                "reference": "c186f1b88836ab9ee7b15c06950abd525467bc56"
+                "url": "https://github.com/dmpty/container.git",
+                "reference": "d810d167b865972316d65659aee009c187ba04b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmpty/container/zipball/d810d167b865972316d65659aee009c187ba04b1",
+                "reference": "d810d167b865972316d65659aee009c187ba04b1",
+                "shasum": ""
             },
             "require": {
-                "php": "^8.0"
+                "php": ">=7.4"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Dmpty\\Container\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -33,7 +39,16 @@
                     "email": "dmptyy@gmail.com"
                 }
             ],
-            "time": "2022-06-23T08:58:08+00:00"
+            "description": "A simple php Ioc container.",
+            "keywords": [
+                "container",
+                "ioc"
+            ],
+            "support": {
+                "issues": "https://github.com/dmpty/container/issues",
+                "source": "https://github.com/dmpty/container/tree/1.0"
+            },
+            "time": "2022-07-15T06:37:41+00:00"
         },
         {
             "name": "opis/closure",
@@ -103,10 +118,8 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "dmpty/container": 20
-    },
+    "minimum-stability": "stable",
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

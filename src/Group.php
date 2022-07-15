@@ -58,6 +58,7 @@ class Group
         return new Route($method, $path, $action, $this->middleware);
     }
 
+    /** @noinspection PhpUnused */
     public function group(array|Closure $options, Closure $callback = null): void
     {
         if ($options instanceof Closure) {
