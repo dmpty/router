@@ -65,13 +65,18 @@ class Group
             $callback = $options;
             $options = [];
         }
+        $prefix = $this->prefix;
         if (!empty($options['prefix']) && is_string($options['prefix'])) {
-            $options['prefix'] = $this->prefix . $this->pathFormat($options['prefix']);
+            $prefix .= $this->pathFormat($options['prefix']);
         }
+        $middleware = $this->middleware;
         if (!empty($options['middleware']) && is_array($options['middleware'])) {
-            $options['middleware'] = array_merge($this->middleware, $options['middleware']);
+            $middleware = array_merge($middleware, $options['middleware']);
         }
-        $child = new static($options);
+        $child = new static([
+            'prefix' => $prefix,
+            'middleware' => $middleware,
+        ]);
         $callback($child);
     }
 
