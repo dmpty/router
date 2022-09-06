@@ -115,6 +115,9 @@ class Router
     {
         $uri = $_SERVER['REQUEST_URI'];
         list($uri) = explode('?', $uri);
+        if ($uri !== '/' && str_ends_with($uri, '/')) {
+            $uri = substr($uri, 0, strlen($uri) - 1);
+        }
         $instance = self::getInstance();
         $route = null;
         $args = [];

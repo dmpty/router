@@ -55,6 +55,7 @@ class Group
     public function add($method, $path, $action): Route
     {
         $path = $this->prefix . $this->pathFormat($path);
+        $path = $this->pathFormat($path);
         return new Route($method, $path, $action, $this->middleware);
     }
 
