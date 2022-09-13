@@ -46,25 +46,26 @@ class Handler
         $this->middlewares[] = $middleware;
     }
 
-    /**
-     * @throws RouterException
-     */
     public function action($action, array $args): void
     {
-        if (is_array($action) && isset($action[0]) && is_string($action[0]) && class_exists($action[0])) {
-            $action[0] = $this->app->make($action[0]);
-        }
-        if (!is_callable($action)) {
-            throw new RouterException('Invalid action');
-        }
         $this->action = $action;
         $this->args = $args;
     }
 
+    /**
+     * @throws RouterException
+     */
     public function run()
     {
         if (!$next = $this->getNext()) {
-            return call_user_func($this->action, ...$this->args);
+            $action = $this->action;
+            if (is_array($action) && isset($action[0]) && is_string($action[0]) && class_exists($action[0])) {
+                $action[0] = $this->app->make($action[0]);
+            }
+            if (!is_callable($action)) {
+                throw new RouterException('Invalid action');
+            }
+            return call_user_func($action, ...$this->args);
         }
         return $next->handle($this->closure());
     }
