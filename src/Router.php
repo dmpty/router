@@ -59,7 +59,11 @@ class Router
      */
     public static function run()
     {
-        list($route, $args) = self::getRouteByUri();
+        $route = self::getRouteByUri();
+        if ($route === null) {
+            return null;
+        }
+        list($route, $args) = $route;
         $handler = new Handler();
         foreach ($route['middleware'] as $middleware) {
             $handler->push($middleware);
@@ -111,7 +115,7 @@ class Router
     /**
      * @throws RouterHttpException
      */
-    private static function getRouteByUri(): bool|array
+    private static function getRouteByUri(): ?array
     {
         $uri = $_SERVER['REQUEST_URI'];
         list($uri) = explode('?', $uri);
@@ -137,6 +141,9 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'];
         if (isset($route[$method])) {
             return [$route[$method], $args];
+        }
+        if ($method === 'OPTIONS') {
+            return null;
         }
         throw new RouterHttpException('405 Method Not Allowed', 405);
     }
